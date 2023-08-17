@@ -34,6 +34,10 @@ func main() {
 	}
 	defer db.Close()
 
+	db.DB().SetMaxIdleConns(10)
+	db.DB().SetMaxOpenConns(100)
+	db.DB().SetConnMaxLifetime(time.Hour)
+
 	db.AutoMigrate(&Pessoa{})
 
 	r := gin.Default()
